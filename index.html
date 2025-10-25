@@ -1,18 +1,145 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Tablas de Multiplicar</title>
-<body>
-    <h1>Tablas de multiplicar del 1 al 10</h1>
-</body>
+  <meta charset="UTF-8">
+  <title>Tablas de Multiplicar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 150px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .grid-tablas {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+      justify-items: center;
+    }
+
+    .tabla-container {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 350px;
+    }
+
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th {
+      background: linear-gradient(to right, #a5d6a7, #66bb6a);
+      color: white;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px #2e7d32;
+      padding: 10px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #e6f2ff;
+    }
+
+    tr:hover {
+      background-color: #cce0ff;
+    }
+
+    .resultado {
+      background-color: #d1ffd1;
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 5px 10px;
+      display: inline-block;
+    }
+  </style>
 </head>
-    <p>1x1</p>
-    <p>1x2</p>
-    <p>1x3</p>
-    <p>1x4</p>
-    <p>1x5=5</p>
-    <p>1x6</p>
-    <p>1x7</p>
-    <p>1x8</p>
-    <p>1x9</p>
-    <p>1x10</p>
+<body>
+  <h1>🎯 Seleccione el rango de Tablas de Multiplicar a mostrar</h1>
+  <input type="number" id="inicio" placeholder="✏️ Desde">
+  <input type="number" id="fin" placeholder="✏️ Hasta">
+  <button onclick="generarTablas()">✅ Generar</button>
+
+  <div id="tablas" class="grid-tablas"></div>
+
+  <script>
+    function generarTablas() {
+      const inicio = parseInt(document.getElementById("inicio").value);
+      const fin = parseInt(document.getElementById("fin").value);
+      const contenedor = document.getElementById("tablas");
+      contenedor.innerHTML = "";
+
+      if (isNaN(inicio) || isNaN(fin) || inicio > fin) {
+        contenedor.innerHTML = "<p class='resultado'>🎉 Ingresa un rango válido (ej. 1 a 3).</p>";
+        return;
+      }
+
+      for (let num = inicio; num <= fin; num++) {
+        let html = `
+          <div class="tabla-container">
+            <h2>🔢 TABLA DEL ${num}</h2>
+            <table>
+              <tr>
+                <th>Multiplicación</th>
+                <th>Resultado</th>
+              </tr>
+        `;
+        for (let i = 1; i <= 10; i++) {
+          html += `
+            <tr>
+              <td>${num} ✖️ ${i}</td>
+              <td><span class="resultado">➡️ ${num * i}</span></td>
+            </tr>
+          `;
+        }
+        html += "</table></div>";
+        contenedor.innerHTML += html;
+      }
+    }
+  </script>
+</body>
 </html>
